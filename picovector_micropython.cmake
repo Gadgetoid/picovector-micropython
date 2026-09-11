@@ -63,6 +63,7 @@ if(PV_PICO3D)
     ${CMAKE_CURRENT_LIST_DIR}/generated/material.cpp
     ${CMAKE_CURRENT_LIST_DIR}/generated/light.cpp
     ${CMAKE_CURRENT_LIST_DIR}/generated/surface.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/generated/scene.cpp
     ${CMAKE_CURRENT_LIST_DIR}/generated/engine.cpp
     ${CMAKE_CURRENT_LIST_DIR}/native/pico3d_native.cpp
   )
