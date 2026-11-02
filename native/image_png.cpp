@@ -108,6 +108,8 @@ extern "C" {
     PNG *png = new(PicoVector_working_buffer) PNG();
     int status = png->open(path, pngdec_open_callback, pngdec_close_callback, pngdec_read_callback, pngdec_seek_callback, pngdec_decode_callback);
     if (status != PNG_SUCCESS) {
+      // A file that is not a PNG was still opened, and its handle is on the tracked list
+      png->close();
       return status;
     }
     return pngdec_decode(target, png, target_width, target_height);
@@ -134,6 +136,7 @@ extern "C" {
   }
 
   static void pngdec_close_callback(void *handle) {
+    if (handle == NULL) return;
     png_handle_t *png_handle = (png_handle_t *)(handle);
     mp_stream_close(png_handle->fhandle);
     m_tracked_free(handle);
