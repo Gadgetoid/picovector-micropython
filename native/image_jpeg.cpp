@@ -88,6 +88,8 @@ extern "C" {
     JPEGDEC *jpeg = new(PicoVector_working_buffer) JPEGDEC();
     int status = jpeg->open(path, jpegdec_open_callback, jpegdec_close_callback, jpegdec_read_callback, jpegdec_seek_callback, jpegdec_decode_callback);
     if (status != 1) {
+      // A file that is not a JPEG was still opened, and its handle is on the tracked list
+      jpeg->close();
       return JPEG_INVALID_FILE;
     }
     return jpegdec_decode(target, jpeg, target_width, target_height);
@@ -114,6 +116,7 @@ extern "C" {
   }
 
   static void jpegdec_close_callback(void *handle) {
+    if (handle == NULL) return;
     jpeg_handle_t *jpeg_handle = (jpeg_handle_t *)(handle);
     mp_stream_close(jpeg_handle->fhandle);
     m_tracked_free(handle);
