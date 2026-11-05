@@ -325,7 +325,7 @@ extern "C" {
       self->vcache_cap = mesh->mesh.vertex_count;
     }
 
-    pico3d_target_t t;
+    pico3d_target_t t{};
     surface_view(self, &t);
     // depth=False drops the Z-buffer for this call. Both the read and the write
     // go to PSRAM, so it is a real saving on a mesh that cannot occlude itself.

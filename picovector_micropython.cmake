@@ -6,7 +6,7 @@
 # working buffer to fit PNGDEC/JPEGDEC decode state, and expose optional
 # metrics/profiling.
 
-if(NOT DEFINED ${PICOVECTOR_DIR})
+if(NOT DEFINED PICOVECTOR_DIR)
   set(PICOVECTOR_DIR "${CMAKE_CURRENT_LIST_DIR}/picovector")
 endif()
 
